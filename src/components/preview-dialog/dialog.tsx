@@ -51,7 +51,7 @@ export const Dialog = memo(
 
     return (
       <Provider colorScheme={colorScheme}>
-        <SpectrumDialog>
+        <SpectrumDialog minHeight='100vh'>
           <Header>
             <Button variant='primary' onPress={() => setIconName(null)}>
               <Close />
