@@ -1,0 +1,43 @@
+{
+  "name": "appicon-forge",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@adobe/react-spectrum": "^3.37.1",
+    "@reactils/create-context-factory": "npm:@jsr/reactils__create-context-factory@^1.0.0",
+    "@spectrum-icons/illustrations": "^3.6.16",
+    "@spectrum-icons/workflow": "^4.2.15",
+    "@tabler/icons-react": "^3.22.0",
+    "@tanstack/react-virtual": "^3.10.9",
+    "clsx": "^2.1.1",
+    "html-to-image": "^1.11.11",
+    "lodash-es": "^4.17.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.5.4",
+    "tw-styled": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "@zhangyu1818/eslint-config": "^2.0.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.13.0",
+    "globals": "^15.11.0",
+    "postcss": "^8.4.49",
+    "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.15",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.10"
+  }
+}
