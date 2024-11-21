@@ -3,6 +3,7 @@ import { forwardRef, memo, useRef, useState, type RefObject } from 'react'
 import {
   Button,
   ButtonGroup,
+  Checkbox,
   Content,
   DialogTrigger,
   Flex,
@@ -19,7 +20,7 @@ import Moon from '@spectrum-icons/workflow/Moon'
 import Settings from '@spectrum-icons/workflow/Settings'
 import * as Icons from '@tabler/icons-react'
 
-import { ICON_SIZE, PREVIEW_ICON_SIZE } from '@/constants'
+import { ICON_SIZE, PREVIEW_ICON_SIZE, PREVIEW_SIZE } from '@/constants'
 import { useSelector } from '@/context'
 import useStyles from '@/hooks/useStyles'
 import { scaleValue } from '@/utils'
@@ -40,6 +41,7 @@ export const Dialog = memo(
     const { iconColor, iconRoute, iconSize } = useStyles()
 
     const { colorScheme: providerScheme } = useProvider()
+    const [withEmptyPadding, setWithEmptyPadding] = useState(true)
     const [colorScheme, setColorScheme] = useState(providerScheme)
 
     const [iconName, setIconName] = useSelector((state) => state.iconName)
@@ -47,23 +49,55 @@ export const Dialog = memo(
       Icons[iconName as keyof typeof Icons] as Icon,
     ).current
 
-    const scale = PREVIEW_ICON_SIZE / ICON_SIZE
+    const renderIconSize = withEmptyPadding ? PREVIEW_ICON_SIZE : PREVIEW_SIZE
+
+    const scale = renderIconSize / ICON_SIZE
 
     return (
       <Provider colorScheme={colorScheme}>
-        <SpectrumDialog minHeight='100vh'>
+        <SpectrumDialog height='100vh'>
           <Header>
-            <Button variant='primary' onPress={() => setIconName(null)}>
-              <Close />
-            </Button>
+            <Checkbox
+              isSelected={withEmptyPadding}
+              onChange={(value) => setWithEmptyPadding(value)}
+            >
+              Padding
+            </Checkbox>
+            <ButtonGroup>
+              <Button
+                variant='primary'
+                onPress={() =>
+                  setColorScheme(colorScheme === 'light' ? 'dark' : 'light')
+                }
+              >
+                {colorScheme === 'light' ? <Moon /> : <Light />}
+              </Button>
+              <DialogTrigger type='popover'>
+                <Button variant='primary'>
+                  <Settings />
+                </Button>
+                <SpectrumDialog width={1024}>
+                  <Content>
+                    <StylesForm inModal />
+                  </Content>
+                </SpectrumDialog>
+              </DialogTrigger>
+              <Button variant='primary' onPress={onDownload}>
+                <Download />
+              </Button>
+              <Button variant='primary' onPress={() => setIconName(null)}>
+                <Close />
+              </Button>
+            </ButtonGroup>
           </Header>
-          <Content>
+          <Content UNSAFE_style={{ marginBottom: -40 }}>
             <Flex alignItems='center' justifyContent='center'>
               <div
                 ref={ref as RefObject<HTMLDivElement>}
-                className='flex size-[1024px] items-center justify-center'
+                className='box-content flex items-center justify-center p-4'
+                style={{ height: PREVIEW_SIZE, width: PREVIEW_SIZE }}
               >
-                <View height={PREVIEW_ICON_SIZE} width={PREVIEW_ICON_SIZE}>
+                <View height={renderIconSize} width={renderIconSize}>
                   <IconCard preview>
                     <IconComponent
                       style={{
@@ -77,31 +111,6 @@ export const Dialog = memo(
                 </View>
               </div>
             </Flex>
-            <div className='flex justify-end'>
-              <ButtonGroup>
-                <Button
-                  variant='primary'
-                  onPress={() =>
-                    setColorScheme(colorScheme === 'light' ? 'dark' : 'light')
-                  }
-                >
-                  {colorScheme === 'light' ? <Moon /> : <Light />}
-                </Button>
-                <DialogTrigger type='popover'>
-                  <Button variant='primary'>
-                    <Settings />
-                  </Button>
-                  <SpectrumDialog width={1024}>
-                    <Content>
-                      <StylesForm inModal />
-                    </Content>
-                  </SpectrumDialog>
-                </DialogTrigger>
-                <Button variant='primary' onPress={onDownload}>
-                  <Download />
-                </Button>
-              </ButtonGroup>
-            </div>
           </Content>
         </SpectrumDialog>
       </Provider>
