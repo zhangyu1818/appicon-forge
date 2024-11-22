@@ -34,11 +34,11 @@ function App() {
   return (
     <div
       className={clsx(
-        'flex h-screen w-screen gap-8 bg-neutral-100 p-6 dark:bg-neutral-900',
-        !column ? 'flex-col' : 'flex-row',
+        'grid h-screen w-screen gap-8 bg-neutral-100 p-6 dark:bg-neutral-900',
+        !column ? 'grid-rows-[auto_1fr]' : 'grid-cols-2 grid-rows-1',
       )}
     >
-      <div className={clsx('relative', column && 'h-full basis-1/2')}>
+      <div className='relative'>
         <Card ref={ref} className={clsx(column && 'h-full overflow-y-scroll')}>
           {!expanded && (
             <FormField name='searchText'>
@@ -60,13 +60,21 @@ function App() {
               <ChevronUp UNSAFE_className={clsx(!expanded && 'rotate-180')} />
             </Button>
           )}
-          <Button variant='primary' onPress={() => setColumn(!column)}>
-            <ColumnTwoB UNSAFE_className={clsx(!column && 'rotate-90')} />
+          <Button
+            variant='primary'
+            onPress={() => {
+              setExpanded(true)
+              setColumn(!column)
+            }}
+          >
+            <ColumnTwoB
+              UNSAFE_className={clsx(column ? 'rotate-90' : 'rotate-180')}
+            />
           </Button>
         </ButtonGroup>
       </div>
 
-      <Card className='flex-1 overflow-hidden p-0'>
+      <Card className='overflow-hidden p-0'>
         <Suspense
           fallback={
             <IllustratedMessage>

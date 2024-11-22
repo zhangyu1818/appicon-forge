@@ -38,7 +38,7 @@ export const ColorList = (props: ColorListProps) => {
             </ColorPicker>
             {!isLast && (
               <Button
-                UNSAFE_className='absolute right-0 top-0 -translate-y-1/3 translate-x-1/2'
+                UNSAFE_className='absolute right-0 top-0 -translate-y-1/3 translate-x-1/2 !bg-neutral-100 dark:!bg-neutral-900'
                 UNSAFE_style={{
                   minBlockSize: 'unset',
                   padding: 0,
@@ -54,7 +54,6 @@ export const ColorList = (props: ColorListProps) => {
           </View>
         )
       })}
-      {}
       <Button
         flex
         marginStart='size-100'
