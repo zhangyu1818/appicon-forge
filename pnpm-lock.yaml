@@ -11,6 +11,9 @@ importers:
       '@adobe/react-spectrum':
         specifier: ^3.37.1
         version: 3.37.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@formkit/auto-animate':
+        specifier: ^0.8.2
+        version: 0.8.2
       '@reactils/create-context-factory':
         specifier: npm:@jsr/reactils__create-context-factory@^1.0.0
         version: '@jsr/reactils__create-context-factory@1.0.0'
@@ -47,9 +50,6 @@ importers:
       tw-styled:
         specifier: ^3.0.0
         version: 3.0.0
-      use-flip:
-        specifier: ^1.0.0
-        version: 1.0.0(react@18.3.1)
     devDependencies:
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -316,6 +316,9 @@ packages:
 
   '@formatjs/intl-localematcher@0.5.8':
     resolution: {integrity: sha512-I+WDNWWJFZie+jkfkiK5Mp4hEDyRSEvmyfYadflOno/mmKJKcB17fEpEH0oJu/OWhhCJ8kJBDz2YMd/6cDl7Mg==}
+
+  '@formkit/auto-animate@0.8.2':
+    resolution: {integrity: sha512-SwPWfeRa5veb1hOIBMdzI+73te5puUBHmqqaF1Bu7FjvxlYSz/kJcZKSa9Cg60zL0uRNeJL2SbRxV6Jp6Q1nFQ==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -3190,11 +3193,6 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  use-flip@1.0.0:
-    resolution: {integrity: sha512-FF/LOHaIV3xfQKL35jwot49uHAEaFOY/HBdZDvNY+3lfRcGctfbx9aQSvRI0XRy5wetJz8Zjw2qMW8E3ySux7Q==}
-    peerDependencies:
-      react: '*'
-
   use-sync-external-store@1.2.2:
     resolution: {integrity: sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==}
     peerDependencies:
@@ -3501,6 +3499,8 @@ snapshots:
   '@formatjs/intl-localematcher@0.5.8':
     dependencies:
       tslib: 2.8.1
+
+  '@formkit/auto-animate@0.8.2': {}
 
   '@humanfs/core@0.19.1': {}
 
@@ -7682,10 +7682,6 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
-
-  use-flip@1.0.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
 
   use-sync-external-store@1.2.2(react@18.3.1):
     dependencies:

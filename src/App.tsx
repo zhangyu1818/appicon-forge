@@ -7,10 +7,10 @@ import {
   IllustratedMessage,
   SearchField,
 } from '@adobe/react-spectrum'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Timeout from '@spectrum-icons/illustrations/Timeout'
 import ChevronUp from '@spectrum-icons/workflow/ChevronUp'
 import clsx from 'clsx'
-import { useFlip } from 'use-flip'
 
 import { FormField } from './components/form-field'
 import { PreviewDialog } from './components/preview-dialog'
@@ -26,11 +26,7 @@ const VirtualGrid = lazy(() =>
 
 function App() {
   const [expanded, setExpanded] = useState(true)
-  const ref = useFlip([expanded], {
-    dimensions: 'height',
-    duration: 300,
-    easing: 'ease-in-out',
-  })
+  const [ref] = useAutoAnimate()
 
   return (
     <div className='flex h-screen w-screen flex-col gap-8 bg-neutral-100 p-6 dark:bg-neutral-900'>
