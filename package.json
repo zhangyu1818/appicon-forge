@@ -22,7 +22,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.4",
-    "tw-styled": "^3.0.0"
+    "tw-styled": "^3.0.0",
+    "use-flip": "^1.0.0"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
