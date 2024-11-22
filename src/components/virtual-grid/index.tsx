@@ -50,9 +50,15 @@ export function VirtualGrid(props: VirtualGridProps) {
 
     updateColumnCount()
     const throttledUpdateColumnCount = throttle(updateColumnCount, 100)
+
+    const resizeObserver = new ResizeObserver(throttledUpdateColumnCount)
+
+    resizeObserver.observe(parentRef.current!)
     window.addEventListener('resize', throttledUpdateColumnCount)
-    return () =>
+    return () => {
       window.removeEventListener('resize', throttledUpdateColumnCount)
+      resizeObserver.disconnect()
+    }
   }, [itemHeight, gap])
 
   const rowVirtualizer = useVirtualizer({

@@ -2,6 +2,7 @@ import { Suspense, lazy, useState } from 'react'
 
 import {
   Button,
+  ButtonGroup,
   Content,
   Heading,
   IllustratedMessage,
@@ -10,6 +11,7 @@ import {
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Timeout from '@spectrum-icons/illustrations/Timeout'
 import ChevronUp from '@spectrum-icons/workflow/ChevronUp'
+import ColumnTwoB from '@spectrum-icons/workflow/ColumnTwoB'
 import clsx from 'clsx'
 
 import { FormField } from './components/form-field'
@@ -26,12 +28,18 @@ const VirtualGrid = lazy(() =>
 
 function App() {
   const [expanded, setExpanded] = useState(true)
+  const [column, setColumn] = useState(false)
   const [ref] = useAutoAnimate()
 
   return (
-    <div className='flex h-screen w-screen flex-col gap-8 bg-neutral-100 p-6 dark:bg-neutral-900'>
-      <div className='relative after:absolute after:-bottom-6 after:right-1/2 after:size-12 after:translate-x-1/2 after:rounded-full after:bg-white after:content-["_"]  after:dark:bg-neutral-800'>
-        <Card ref={ref} className='overflow-hidden'>
+    <div
+      className={clsx(
+        'flex h-screen w-screen gap-8 bg-neutral-100 p-6 dark:bg-neutral-900',
+        !column ? 'flex-col' : 'flex-row',
+      )}
+    >
+      <div className={clsx('relative', column && 'h-full basis-1/2')}>
+        <Card ref={ref} className={clsx(column && 'h-full overflow-y-scroll')}>
           {!expanded && (
             <FormField name='searchText'>
               <SearchField />
@@ -39,18 +47,23 @@ function App() {
           )}
           {expanded && <StylesForm />}
         </Card>
-        <Button
-          UNSAFE_className='absolute z-10 -bottom-4 right-1/2 translate-x-1/2'
-          variant='primary'
-          onPress={() => setExpanded(!expanded)}
+        <ButtonGroup
+          UNSAFE_className={clsx(
+            'absolute z-10 translate-x-1/2 translate-y-1/2 rounded-xl bg-white dark:bg-neutral-800',
+            !column
+              ? 'bottom-1 right-1/2 px-5 py-2 '
+              : 'right-0 top-1/2 -translate-y-1/2 p-2',
+          )}
         >
-          <ChevronUp
-            UNSAFE_className={clsx(
-              'transition-transform duration-300',
-              !expanded && 'rotate-180',
-            )}
-          />
-        </Button>
+          {!column && (
+            <Button variant='primary' onPress={() => setExpanded(!expanded)}>
+              <ChevronUp UNSAFE_className={clsx(!expanded && 'rotate-180')} />
+            </Button>
+          )}
+          <Button variant='primary' onPress={() => setColumn(!column)}>
+            <ColumnTwoB UNSAFE_className={clsx(!column && 'rotate-90')} />
+          </Button>
+        </ButtonGroup>
       </div>
 
       <Card className='flex-1 overflow-hidden p-0'>
