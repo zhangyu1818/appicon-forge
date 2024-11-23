@@ -1,7 +1,6 @@
-import { Suspense, lazy, memo, useCallback, useRef } from 'react'
+import { Suspense, lazy, memo } from 'react'
 
 import { DialogContainer } from '@adobe/react-spectrum'
-import { toPng } from 'html-to-image'
 
 import { useSelector } from '@/context'
 
@@ -12,19 +11,6 @@ const Dialog = lazy(() =>
 export const PreviewDialog = memo(() => {
   const [iconName, setIconName] = useSelector((state) => state.iconName)
 
-  const ref = useRef<HTMLDivElement | null>(null)
-
-  const download = useCallback(() => {
-    if (ref.current) {
-      toPng(ref.current).then((dataUrl) => {
-        const a = document.createElement('a')
-        a.href = dataUrl
-        a.download = `${iconName}.png`
-        a.click()
-      })
-    }
-  }, [iconName])
-
   return (
     <DialogContainer
       isDismissable
@@ -33,7 +19,7 @@ export const PreviewDialog = memo(() => {
     >
       {!!iconName && (
         <Suspense>
-          <Dialog ref={ref} onDownload={download} />
+          <Dialog />
         </Suspense>
       )}
     </DialogContainer>
