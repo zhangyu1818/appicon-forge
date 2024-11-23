@@ -94,7 +94,7 @@ export const Dialog = memo(
             <Flex alignItems='center' justifyContent='center'>
               <div
                 ref={ref as RefObject<HTMLDivElement>}
-                className='box-content flex items-center justify-center p-4'
+                className='flex items-center justify-center'
                 style={{ height: PREVIEW_SIZE, width: PREVIEW_SIZE }}
               >
                 <View height={renderIconSize} width={renderIconSize}>
