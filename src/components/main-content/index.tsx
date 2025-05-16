@@ -1,46 +1,65 @@
-import { Icon } from '@iconify/react'
-import { AnimatePresence, motion } from 'motion/react'
-import { useTranslation } from 'react-i18next'
-import tw from 'tw-styled'
+import { Icon } from '@iconify/react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
+import tw from 'tw-styled';
+import i18n from 'i18next';
+import { useEffect, useState } from 'react';
 
-import { IconsGrid } from '@/components/icons-grid'
-import { LanguageToggle } from '@/components/language-toggle'
-import { PreviewDialog } from '@/components/preview-icon-dialog'
-import { PreviewText } from '@/components/preview-text'
-import { PreviewUpload } from '@/components/preview-upload'
-import { ThemeToggle } from '@/components/theme-toggle'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useStore } from '@/store'
-import { Settings, Tab } from '@/store/constants'
+import { IconsGrid } from '@/components/icons-grid';
+import { LanguageToggle } from '@/components/language-toggle';
+import { PreviewDialog } from '@/components/preview-icon-dialog';
+import { PreviewText } from '@/components/preview-text';
+import { PreviewUpload } from '@/components/preview-upload';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useStore } from '@/store';
+import { Settings, Tab } from '@/store/constants';
 
 const MotionTabContent = tw(
   motion.div,
-)`mt-4 flex-1 overflow-hidden ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`
+)`mt-4 flex-1 overflow-hidden ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`;
 
 export function MainContent() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [{ selectedTab }, setComponentsState] = useStore(
     (store) => store.componentsState,
-  )
+  );
+  const [updateKey, setUpdateKey] = useState(0);
+
+  useEffect(() => {
+    const handleInitialized = () => {
+      setUpdateKey(prevKey => prevKey + 1);
+    };
+
+    if (i18n.isInitialized) {
+      setUpdateKey(prevKey => prevKey + 1);
+    } else {
+      i18n.on('initialized', handleInitialized);
+    }
+
+    return () => {
+      i18n.off('initialized', handleInitialized);
+    };
+  }, []);
 
   return (
-    <div className='relative rounded-2xl border p-4 shadow-sm'>
+    <div key={updateKey} className='relative rounded-2xl border p-4 shadow-sm'>
       <Tabs
         className='flex h-full flex-col'
         value={selectedTab}
         onValueChange={(value) => {
           setComponentsState((draft) => {
-            draft.selectedTab = value as Tab
-          })
+            draft.selectedTab = value as Tab;
+          });
           if (value === Tab.Icon || value === Tab.Upload) {
             setComponentsState((draft) => {
-              draft.selectedSettings = Settings.Icon
-            })
+              draft.selectedSettings = Settings.Icon;
+            });
           } else if (value === Tab.Text) {
             setComponentsState((draft) => {
-              draft.selectedSettings = Settings.Text
-            })
+              draft.selectedSettings = Settings.Text;
+            });
           }
         }}
       >
@@ -99,5 +118,5 @@ export function MainContent() {
       </Tabs>
       <PreviewDialog />
     </div>
-  )
+  );
 }
