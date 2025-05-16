@@ -2,6 +2,8 @@ import { Icon } from '@iconify/react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import tw from 'tw-styled'
+import i18n from 'i18next'
+import { useEffect, useState } from 'react'
 
 import { IconsGrid } from '@/components/icons-grid'
 import { LanguageToggle } from '@/components/language-toggle'
@@ -23,9 +25,26 @@ export function MainContent() {
   const [{ selectedTab }, setComponentsState] = useStore(
     (store) => store.componentsState,
   )
+  const [updateKey, setUpdateKey] = useState(0)
+
+  useEffect(() => {
+    const handleInitialized = () => {
+      setUpdateKey(prevKey => prevKey + 1)
+    }
+
+    if (i18n.isInitialized) {
+      setUpdateKey(prevKey => prevKey + 1)
+    } else {
+      i18n.on('initialized', handleInitialized)
+    }
+
+    return () => {
+      i18n.off('initialized', handleInitialized)
+    }
+  }, [])
 
   return (
-    <div className='relative rounded-2xl border p-4 shadow-sm'>
+    <div key={updateKey} className='relative rounded-2xl border p-4 shadow-sm'>
       <Tabs
         className='flex h-full flex-col'
         value={selectedTab}
