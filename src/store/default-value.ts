@@ -20,7 +20,7 @@ export const defaultStyles: Styles = {
   borderGradient: Gradient.Linear,
   borderRadius: [64, 64, 64, 64],
   borderRotation: 180,
-  borderWidth: 0,
+  borderWidth: 8,
   iconColor: defaultIconColor,
   iconOffset: [0, 0],
   iconPerspective: [false, 0, 0],
