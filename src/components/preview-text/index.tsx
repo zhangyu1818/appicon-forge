@@ -18,8 +18,8 @@ export const PreviewText = () => {
       <Separator />
       <IconCard ref={iconCardRef} inPreview previewType='text' />
       <DownloadButton
-        onClick={() => {
-          downloadImage(imageSize, `text.png`, iconCardRef.current)
+        onClick={(downloadType) => {
+          downloadImage(imageSize, 'text', downloadType, iconCardRef.current)
         }}
       />
     </PreviewContainer>

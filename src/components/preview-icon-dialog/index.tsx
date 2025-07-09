@@ -103,10 +103,11 @@ export const PreviewDialog = () => {
                 </Button>
               )}
               <DownloadButton
-                onClick={() => {
+                onClick={(downloadType) => {
                   downloadImage(
                     imageSize,
-                    `${previewIcon.name}.png`,
+                    previewIcon.name,
+                    downloadType,
                     iconCardRef.current,
                   )
                 }}

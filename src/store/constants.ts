@@ -25,3 +25,11 @@ export const enum Gradient {
   Radial = 'radial',
   Conic = 'conic',
 }
+
+// eslint-disable-next-line no-restricted-syntax
+export const enum DownloadTypes {
+  Png = 'Png',
+  Svg = 'Svg',
+  Jpeg = 'Jpeg',
+  InnerSvg = 'Inner-Svg',
+}

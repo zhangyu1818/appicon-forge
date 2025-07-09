@@ -65,8 +65,8 @@ export const PreviewUpload = () => {
         onChange={handleFileUpload}
       />
       <DownloadButton
-        onClick={() => {
-          downloadImage(imageSize, `upload.png`, iconCardRef.current)
+        onClick={(downloadType) => {
+          downloadImage(imageSize, 'upload', downloadType, iconCardRef.current)
         }}
       />
     </PreviewContainer>

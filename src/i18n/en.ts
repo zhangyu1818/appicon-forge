@@ -12,6 +12,7 @@ export const en = {
     'icon shadow settings': 'Icon Shadow Settings',
     'import and export': 'Preset Import and Export',
     'import data': 'Import Presets',
+    'inner svg': 'Inner Svg',
     'inset shadow settings': 'Inset Shadow Settings',
     'shadow settings': 'Shadow Settings',
     'text settings': 'Text Settings',

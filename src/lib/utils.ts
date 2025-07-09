@@ -1,9 +1,10 @@
 import { clsx, type ClassValue } from 'clsx'
-import { toPng } from 'html-to-image'
+import { saveAs } from 'file-saver'
+import { toJpeg, toPng, toSvg } from 'html-to-image'
 import { nanoid } from 'nanoid'
 import { twMerge } from 'tailwind-merge'
 
-import { Gradient } from '@/store/constants'
+import { DownloadTypes, Gradient } from '@/store/constants'
 
 import type { APIv2CollectionResponse } from '@/services/iconify'
 import type { Color, Perspective, Shadow } from '@/store/interface'
@@ -166,19 +167,51 @@ export const scaleShadow = (shadow: Shadow, scale: number) => {
 export const downloadImage = (
   imageSize: number,
   fileName: string,
+  fileType: DownloadTypes,
   element?: HTMLElement | null,
 ) => {
   if (element) {
-    toPng(element, {
-      canvasHeight: imageSize,
-      canvasWidth: imageSize,
-      pixelRatio: 1,
-    }).then((dataUrl) => {
+    const downloadAction = (dataUrl: string, fileExtension: string) => {
       const a = document.createElement('a')
       a.href = dataUrl
-      a.download = fileName
+      a.download = `${fileName}.${fileExtension}`
       a.click()
-    })
+    }
+    switch (fileType) {
+      case DownloadTypes.Png:
+        toPng(element, {
+          canvasHeight: imageSize,
+          canvasWidth: imageSize,
+          pixelRatio: 1,
+        }).then((dataUrl) => downloadAction(dataUrl, 'png'))
+        break
+      case DownloadTypes.Svg:
+        toSvg(element, {
+          canvasHeight: imageSize,
+          canvasWidth: imageSize,
+          pixelRatio: 1,
+        }).then((dataUrl) => downloadAction(dataUrl, 'svg'))
+        break
+      case DownloadTypes.Jpeg:
+        toJpeg(element, {
+          canvasHeight: imageSize,
+          canvasWidth: imageSize,
+          pixelRatio: 1,
+          quality: 0.95,
+        }).then((dataUrl) => downloadAction(dataUrl, 'jpeg'))
+        break
+      case DownloadTypes.InnerSvg:
+        {
+          const svgElement = element.querySelector('svg')
+          if (svgElement) {
+            const blob = new Blob([svgElement.outerHTML], {
+              type: 'image/svg+xml',
+            })
+            saveAs(blob, `${fileName}.svg`)
+          }
+        }
+        break
+    }
   }
 }
 

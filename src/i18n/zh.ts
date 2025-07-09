@@ -12,6 +12,7 @@ export const zh = {
     'icon shadow settings': '图标阴影设置',
     'import and export': '预设导入与导出',
     'import data': '导入预设',
+    'inner svg': '内部Svg',
     'inset shadow settings': '内阴影设置',
     'shadow settings': '阴影设置',
     'text settings': '文字设置',
